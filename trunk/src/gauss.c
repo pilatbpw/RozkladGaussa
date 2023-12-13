@@ -1,8 +1,8 @@
 #include "gauss.h"
 
 int eliminacja_wiersz(int k, Matrix *mat, Matrix *b){ 	//data[r][c]
-	
-		if(mat->data[k-1][k-1]<0.0000001){
+		
+		if(abs(mat->data[k-1][k-1])<0.0000001){
 			
 			return 1;
 		}
