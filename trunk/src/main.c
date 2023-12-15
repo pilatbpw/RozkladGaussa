@@ -41,18 +41,19 @@ int main(int argc, char ** argv) {
 			
 			
 		}
-	}
-	
+	} 
+	// Popraw tutaj interfejs
 	x = createMatrix(b->r, 1);
-	/*if (x != NULL) {
-		//res = backsubst(x,A,b);
+	if (x != NULL) {
+		res = backsubst(x,A,b);
 
 		printToScreen(x);
+		printToScreen(A); //skasuj to!
 	  freeMatrix(x);
 	} else {
 					fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
 	}
-*/
+
 	freeMatrix(A);
 	freeMatrix(b);
 
