@@ -25,7 +25,7 @@ int  backsubst(Matrix *x, Matrix *mat, Matrix *b, int * W) {
 		x->data[W[(x->r)-1]][0] = b->data[W[(b->r)-1]][0] / mat->data[W[(mat->r)-1]][(mat->c)-1]; 
 		
 		
-		//odtad sie cos pierdzieli
+		
 		double suma;
 		if( x->r == mat->r)
 		{

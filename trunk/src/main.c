@@ -43,6 +43,13 @@ int main(int argc, char ** argv) {
 	x = createMatrix(b->r, 1);
 	if (x != NULL) {
 		res = backsubst(x,A,b, W);
+		if(res==1){
+			fprintf(stdout, "BLAD!: Blad dzielenia przez 0\n");
+		}
+		else if(res==2){
+			fprintf(stdout, "BLAD!: Nieprawidlowe rozmiary macierzy\n");
+		}
+		
 		printf("\nx\n");
 		printToScreen(x);
 	  	freeMatrix(x);
