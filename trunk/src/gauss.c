@@ -60,10 +60,8 @@ int eliminate(Matrix *mat, Matrix *b, int * W){
 			 
 		 }
 		 
-		for(int i=0;i<mat->r;i++){
-			printf("W[%d]=%d ",i, W[i]);
-		}
-		printf("\n");
+		
+		
 		return 0;
 }
 

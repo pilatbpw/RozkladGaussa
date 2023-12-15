@@ -19,8 +19,7 @@ int main(int argc, char ** argv) {
 
 	}
 
-	printToScreen(A);
-	printToScreen(b);
+
 	//macierz A rozmiaru r=3 rzedow c=3 kolumn numerowana jest:
 	/*
 	[ a00 a01 a02
@@ -35,13 +34,16 @@ int main(int argc, char ** argv) {
 		fprintf(stdout, "BLAD!: Macierz:\"%s\" jest osobliwa\n", argv[1]);
 	}
 	else{
+		printf("A\n");
 		printToScreen(A);
+		printf("\nb\n");
 		printToScreen(b);
 	}
 	
 	x = createMatrix(b->r, 1);
 	if (x != NULL) {
 		res = backsubst(x,A,b, W);
+		printf("\nx\n");
 		printToScreen(x);
 	  	freeMatrix(x);
 	} else {
