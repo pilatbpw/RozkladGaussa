@@ -1,17 +1,35 @@
 #include "gauss.h"
 
-int eliminacja_wiersz(int k, Matrix *mat, Matrix *b){ 	//data[r][c]
+void zamiana_wierszy(int k, Matrix *mat, int * W){
+	int max=k-1;
+	for(int i=k-1;i<mat->r;i++){
+		if(mat->data[max][k-1]<mat->data[i][k-1]){
+			max=i;
+
+
+		}
+
+	}
+	int tmp=W[k-1];
+	W[k-1]=W[max];
+	W[max]=tmp;
+
+}
+
+
+int eliminacja_wiersz(int k, Matrix *mat, Matrix *b, int * W){ 	//data[r][c]
 		
-		if(abs(mat->data[k-1][k-1])<0.0000001){
+		zamiana_wierszy(k, mat, W);
+		if(abs(mat->data[W[k-1]][k-1])<0.0000001){
 			
 			return 1;
 		}
 		for(int i=k;i<mat->r;i++){
-			double cz=(mat->data[i][k-1])/mat->data[k-1][k-1]; //czynnik potrzebny do zerowania
+			double cz=(mat->data[W[i]][k-1])/mat->data[W[k-1]][k-1]; //czynnik potrzebny do zerowania
 			for(int j=k-1;j<mat->c;j++){
-				mat->data[i][j]-=(mat->data[k-1][j])*cz;
+				mat->data[W[i]][j]-=(mat->data[W[k-1]][j])*cz;
 			}
-			b->data[i][0]-=(b->data[k-1][0])*cz;
+			b->data[W[i]][0]-=(b->data[W[k-1]][0])*cz;
 								
 			}
 			
@@ -29,20 +47,23 @@ int eliminacja_wiersz(int k, Matrix *mat, Matrix *b){ 	//data[r][c]
  * Zwraca 0 - elimnacja zakonczona sukcesem
  * Zwraca 1 - macierz osobliwa - dzielenie przez 0
  */
-int eliminate(Matrix *mat, Matrix *b){
+int eliminate(Matrix *mat, Matrix *b, int * W){
     /**
   	 * Tutaj należy umieścić właściwą implemntację.
 		 */
 		 
 		 
 		 for(int k=1; k<mat->r;k++){
-			 if(eliminacja_wiersz(k, mat, b)){
+			 if(eliminacja_wiersz(k, mat, b,W)){
 				 return 1;
 			 }
 			 
 		 }
 		 
-
+		for(int i=0;i<mat->r;i++){
+			printf("W[%d]=%d ",i, W[i]);
+		}
+		printf("\n");
 		return 0;
 }
 
