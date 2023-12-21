@@ -18,7 +18,10 @@ Matrix * readFromFile(char * fname) {
 					if (mat != NULL) {
 						for (ir = 0; ir < r; ir++) 
 							for (ic = 0; ic < c; ic++)
-								fscanf(fin, "%lf",&(mat->data[ir][ic])); //Wypelnienie pustej macierzy danymi z pliku
+								if(fscanf(fin, "%lf",&(mat->data[ir][ic]))<1){
+									printf("BLAD!: Wczytano element niebedacy liczba\n");
+									exit(0);
+								}									//Wypelnienie pustej macierzy danymi z pliku
 					} else {
 								fprintf(stderr,"Wystąpił problem podczas tworzenia macierzy o rozmiarach %d x %d dla danych z pliku: %s\n", r, c, fname);
 					}
@@ -42,6 +45,21 @@ void printToScreen(Matrix *mat) { //Wypisanie macierzy na ekran
 		printf("; \n");
 	}
 	printf("]\n");
+}
+void printToFile(Matrix *mat, FILE* plik) { //Wypisanie macierzy na ekran
+	int i,j;
+	
+	for (i = 0; i<mat->r; i++) {
+		
+		for (j = 0; j < mat->c; j++) {
+			fprintf(plik,"%f", mat->data[i][j]);
+		}
+		if(i+1<mat->r){
+			fprintf(plik," ");
+		}
+		
+	}
+	
 }
 
 Matrix * createMatrix(int r, int c) {

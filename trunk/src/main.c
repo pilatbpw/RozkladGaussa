@@ -6,6 +6,8 @@
 
 
 int main(int argc, char ** argv) {
+	FILE *plik;
+	plik=fopen("bin/wynik", "w");
 	int res;
 	Matrix * A = readFromFile(argv[1]);
 	Matrix * b = readFromFile(argv[2]);
@@ -28,36 +30,47 @@ int main(int argc, char ** argv) {
 	
 	*/
 	// komorka [1][0] w macierzy A to:  A->data[1][0]
-
+	printf("Wczytane dane:\nA\n");
+	printToScreen(A);
+	printf("\nb\n");
+	printToScreen(b);
+	if(A->r != b->r){
+		fprintf(stdout, "BLAD!: Nieprawidlowe wymiary macierzy\n");
+		exit(0);
+		
+	}
 	res = eliminate(A,b,W);
 	if(res){
 		fprintf(stdout, "BLAD!: Macierz:\"%s\" jest osobliwa\n", argv[1]);
 	}
-	else{
-		printf("A\n");
-		printToScreen(A);
-		printf("\nb\n");
-		printToScreen(b);
-	}
+	
 	
 	x = createMatrix(b->r, 1);
 	if (x != NULL) {
 		res = backsubst(x,A,b, W);
 		if(res==1){
 			fprintf(stdout, "BLAD!: Blad dzielenia przez 0\n");
+			fprintf(plik, "BLAD!: Blad dzielenia przez 0\n");
+			exit(0);
 		}
 		else if(res==2){
 			fprintf(stdout, "BLAD!: Nieprawidlowe rozmiary macierzy\n");
+			fprintf(plik, "BLAD!: Nieprawidlowe rozmiary macierzy\n");
+			exit(0);
 		}
 		
 		printf("\nx\n");
 		printToScreen(x);
+		
+		printToFile(x,plik);
 	  	freeMatrix(x);
 	} else {
 		fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
+		fprintf(plik,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
 	}
 	freeMatrix(A);
 	freeMatrix(b);
+	
 
 	return 0;
 }
