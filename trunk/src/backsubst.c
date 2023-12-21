@@ -44,6 +44,23 @@ int  backsubst(Matrix *x, Matrix *mat, Matrix *b, int * W) {
 				x->data[W[i]][0] = (double)(suma/mat->data[W[i]][i]);
 				
 			}
+			int z = x->r;
+			if (z % 2 == 0)
+			{
+				for(int i = 0; i < z/2; i++)
+				{
+					double tmp = x->data[i][0];
+					x->data[i][0] = x->data[z-i-1][0];
+					x->data[z-i-1][0] = tmp;
+				}
+			}else {
+				for(int i = 0; i < (z-1)/2; i++)
+				{
+					double tmp = x->data[i][0];
+					x->data[i][0] = x->data[z-i-1][0];
+					x->data[z-i-1][0] = tmp;
+				}
+			}
 			return 0;
 		}
 		else
