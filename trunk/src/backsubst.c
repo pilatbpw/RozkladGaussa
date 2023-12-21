@@ -27,7 +27,7 @@ int  backsubst(Matrix *x, Matrix *mat, Matrix *b, int * W) {
 		
 		
 		double suma;
-		if( x->r == mat->r)
+		if( x->r == mat->r && mat->c == mat->r )
 		{
 			for (int i = x->r - 2; i>=0; i--)
 			{
